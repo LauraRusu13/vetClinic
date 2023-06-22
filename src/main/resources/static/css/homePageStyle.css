@@ -1,0 +1,122 @@
+
+.header {
+    background-image: url("../img/LUMINATTO-BEIGE.webp");
+    background-size: cover;
+    background-repeat: repeat;
+}
+
+.container {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.part {
+    display: inline-block; /* Display elements inline */
+
+}
+
+.label {
+    color: #3d3d3d;
+    font-style: italic;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.text {
+    font-weight: normal;
+    font-size: medium;
+}
+
+img {
+    height: 30px;
+    width: 30px;
+    padding: 15px;
+}
+
+
+
+
+
+
+
+
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.doctor-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.doctor-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.doctor-specialty {
+    font-size: 14px;
+    color: #666;
+}
+
+
+
+
+
+
+
+.footer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #333;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+.button {
+    display: inline-block;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.button img {
+    margin-right: 5px;
+    vertical-align: middle;
+}

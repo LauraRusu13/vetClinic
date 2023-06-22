@@ -1,0 +1,32 @@
+
+.navbar {
+
+    padding: 40px;
+    text-align: center;
+    margin: 10px;
+    margin-right: 50px;
+}
+
+.navbar ul{
+    background: rgba(128, 128, 128, 0.57);
+    width: 100%;
+    border-radius: 30px;
+}
+
+.navbar li {
+    display: inline-block;
+    list-style: none;
+    margin: 20px 30px;
+    color: beige;
+    position: relative;
+}
+
+.navbar a {
+    display: block;
+    padding: 2px 2px;
+    text-decoration: none;
+    color: #3d3d3d;
+    font-size: small;
+    font-weight: bold;
+    font-style: italic;
+}
