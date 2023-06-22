@@ -1,9 +1,13 @@
 package com.sda.vetClinic.controller;
 
 
+import com.sda.vetClinic.dto.PetDto;
+import com.sda.vetClinic.service.PetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 //        Inregistrare pet
@@ -29,11 +33,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MvcController {
 
+    @Autowired
+    PetService petService;
+
+
+
     @GetMapping("/homePage")
     public String homePageGet(Model model) {
         return "homePage";
     }
 
+
+    @GetMapping("/addPet")
+    public String addPetGet(Model model) {
+        PetDto petDto = new PetDto();
+        model.addAttribute("petDto", petDto);
+        return "addPet";
+    }
+
+    @PostMapping("/addPet")
+    public String addPetPost(@ModelAttribute(name = "petDto") PetDto petDto) {
+        petService.addPet(petDto);
+        return "redirect:/addPet";
+
+    }
 
     @GetMapping("/login")
     public String loginGet(Model model) {
