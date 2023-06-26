@@ -47,6 +47,12 @@ public class MvcController {
     private LoginService loginService;
 
 
+    @GetMapping("/test")
+    public String testGet(Model model) {
+        return "test";
+    }
+
+
     @GetMapping("/homepageOwner")
     public String homepageOwnerGet(Model model) {
         return "homepageOwner";
