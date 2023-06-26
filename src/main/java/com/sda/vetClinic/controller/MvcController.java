@@ -1,10 +1,12 @@
 package com.sda.vetClinic.controller;
 
 
+import com.sda.vetClinic.dto.LoginDto;
 import com.sda.vetClinic.dto.PetDto;
-import com.sda.vetClinic.dto.VetDto;
+import com.sda.vetClinic.dto.UserDto;
+import com.sda.vetClinic.service.LoginService;
 import com.sda.vetClinic.service.PetService;
-import com.sda.vetClinic.service.VetService;
+import com.sda.vetClinic.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,12 +41,21 @@ public class MvcController {
     private PetService petService;
 
     @Autowired
-    private VetService vetService;
+    private UserService userService;
+
+    @Autowired
+    private LoginService loginService;
 
 
-    @GetMapping("/homePage")
-    public String homePageGet(Model model) {
-        return "homePage";
+    @GetMapping("/homepageOwner")
+    public String homepageOwnerGet(Model model) {
+        return "homepageOwner";
+    }
+
+
+    @GetMapping("/homepageVeterinarian")
+    public String homepageVeterinarianGet(Model model) {
+        return "homepageVeterinarian";
     }
 
 
@@ -55,6 +66,7 @@ public class MvcController {
         return "addPet";
     }
 
+
     @PostMapping("/addPet")
     public String addPetPost(@ModelAttribute(name = "petDto") PetDto petDto) {
         petService.addPet(petDto);
@@ -62,18 +74,41 @@ public class MvcController {
 
     }
 
-    @GetMapping("/addVet")
-    public String addVetGet(Model model) {
-        VetDto vetDto = new VetDto();
-        model.addAttribute("vetDto", vetDto);
-        return "addVet";
+    @GetMapping("/registration")
+    public String registrationGet(Model model) {
+        UserDto userDto = new UserDto();
+        model.addAttribute(userDto);
+        return "registration";
     }
 
 
-    @PostMapping("/addVet")
-    public String addVetPost(@ModelAttribute(name = "vetDto") VetDto vetDto) {
-        vetService.addVet(vetDto);
-        return "redirect:/addVet";
+    @PostMapping("/registration")
+    public String registrationPost(@ModelAttribute(name = "userDto") UserDto userDto) {
+        userService.createUser(userDto);
+        return "redirect:/registration";
+
+    }
+
+
+
+    @GetMapping("/login")
+    public String loginGet(Model model) {
+        LoginDto loginDto = new LoginDto();
+        model.addAttribute(loginDto);
+        return "login";
+    }
+
+
+    @PostMapping("/login")
+    public String loginPost(@ModelAttribute(name = "loginDto") LoginDto loginDto, Model model) {
+        Boolean loginWasSuccessful = loginService.login(loginDto);
+        if (loginWasSuccessful) {
+            model.addAttribute("loginMessage", "Login was successful!");
+        } else {
+            model.addAttribute("loginMessage", "Login unsuccessful! Try again.");
+        }
+        return "login";
+
     }
 
 

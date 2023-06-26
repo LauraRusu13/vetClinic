@@ -22,8 +22,6 @@ public class Pet {
 
     private String name;
 
-    private String ownerName;
-
     @Enumerated(value = EnumType.STRING)
     private Type type;
 
@@ -38,4 +36,8 @@ public class Pet {
 
     @Enumerated(value = EnumType.STRING)
     private Pedigree pedigree;
+
+    @ManyToOne
+    @JoinColumn
+    private User user;
 }

@@ -15,7 +15,7 @@ public class PetDto {
 
     private String name;
 
-    private String ownerName;
+    private String ownerEmail;
 
     private String type;
 
