@@ -19,6 +19,10 @@ public class PetDto {
 
     private String type;
 
+    private String gender;
+
+    private String dateOfBirth;
+
     private String weight;
 
     private String age;

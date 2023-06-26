@@ -2,10 +2,11 @@ package com.sda.vetClinic.entity;
 
 
 import com.sda.vetClinic.enums.Gender;
-import com.sda.vetClinic.enums.Pedigree;
+import com.sda.vetClinic.enums.Speciality;
 import com.sda.vetClinic.enums.Type;
 import jakarta.persistence.*;
 import lombok.*;
+
 
 @Entity
 @Builder
@@ -14,7 +15,7 @@ import lombok.*;
 @ToString
 @Getter
 @Setter
-public class Pet {
+public class Vet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,20 +23,20 @@ public class Pet {
 
     private String name;
 
-    private String ownerName;
-
-    @Enumerated(value = EnumType.STRING)
-    private Type type;
-
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     private String dateOfBirth;
 
-    private Double weight;
+    @Enumerated(value = EnumType.STRING)
+    private Speciality speciality;
 
-    private Integer age;
+    private String degree;
+
+    private String skills;
 
     @Enumerated(value = EnumType.STRING)
-    private Pedigree pedigree;
+    private Type type;
+
+
 }
