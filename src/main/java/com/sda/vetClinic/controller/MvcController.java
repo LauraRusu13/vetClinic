@@ -2,7 +2,9 @@ package com.sda.vetClinic.controller;
 
 
 import com.sda.vetClinic.dto.PetDto;
+import com.sda.vetClinic.dto.VetDto;
 import com.sda.vetClinic.service.PetService;
+import com.sda.vetClinic.service.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +36,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MvcController {
 
     @Autowired
-    PetService petService;
+    private PetService petService;
 
+    @Autowired
+    private VetService vetService;
 
 
     @GetMapping("/homePage")
@@ -57,6 +61,24 @@ public class MvcController {
         return "redirect:/addPet";
 
     }
+
+    @GetMapping("/addVet")
+    public String addVetGet(Model model) {
+        VetDto vetDto = new VetDto();
+        model.addAttribute("vetDto", vetDto);
+        return "addVet";
+    }
+
+
+    @PostMapping("/addVet")
+    public String addVetPost(@ModelAttribute(name = "vetDto") VetDto vetDto) {
+        vetService.addVet(vetDto);
+        return "redirect:/addVet";
+    }
+
+
+
+
 
     @GetMapping("/login")
     public String loginGet(Model model) {
