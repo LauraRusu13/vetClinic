@@ -29,6 +29,8 @@ public class User {
 
     private String password;
 
+    private String phoneNo;
+
     private LocalDate dateOfBirth;
 
     @Enumerated(value = EnumType.STRING)
