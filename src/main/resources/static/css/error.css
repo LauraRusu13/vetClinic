@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffffff, #bb0202);
+    font-family: Arial, sans-serif;
+}
+
+.image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error-text {
+    text-align: center;
+}
+
+.error-text h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.error-text h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.error-text p {
+    font-size: 18px;
+}

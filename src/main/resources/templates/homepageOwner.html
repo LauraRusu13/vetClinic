@@ -3,54 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link rel="stylesheet"  type="text/css" th:href="@{/css/homePageStyle.css}" />
+    <link rel="stylesheet" th:href="@{/css/homepageOwner.css}" href="../static/css/homepageOwner.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body class="header">
+<body class="gradient-custom">
 
 <div th:include="~{fragments/navbar}"></div>
 
-
 <div>
-    <h2 class="section-title">Meet Our Doctors</h2>
+    <h2 class="section-title">Here are your pets</h2>
 
-    <div class="doctor-card">
-        <h3 class="doctor-name">Dr. John Doe</h3>
-        <p class="doctor-specialty">Cardiologist</p>
-        <p>bla bla.</p>
+    <div class="pet-card" th:each="petDto:${petDtoList}">
+                <h2 th:text="${petDto.name}"></h2>
+                <p th:text="${petDto.type}"></p>
+                <p th:text="${petDto.gender}"></p>
+                <p th:text="${petDto.dateOfBirth}"></p>
+                <p th:text="${petDto.weight + ' kg'}"></p>
+                <p th:text="${petDto.age + ' years'}"></p>
+                <p th:text="${petDto.pedigree}"></p>
     </div>
-
-    <div class="doctor-card">
-        <h3 class="doctor-name">Dr. Jane Smith</h3>
-        <p class="doctor-specialty">Dermatologist</p>
-        <p>bla bla.</p>
-    </div>
-
-    <div class="doctor-card">
-        <h3 class="doctor-name">Dr. John Doe</h3>
-        <p class="doctor-specialty">Cardiologist</p>
-        <p>bla bla.</p>
-    </div>
-
-    <div class="doctor-card">
-        <h3 class="doctor-name">Dr. Jane Smith</h3>
-        <p class="doctor-specialty">Dermatologist</p>
-        <p>bla bla.</p>
-    </div>
-</div>
-
-
-<div>
-    <p>bla bla bla</p>
-    <img src="img.png">
-    <img src="img.png">
-    <img src="img.png">
-    <img src="img.png">
-<button class="button">
-    click
-</button>
-</div>
-
-
 
 
 <footer class="footer">
@@ -60,11 +31,11 @@
 
     <div class="social-icons">
         <a href="https://www.facebook.com">
-            <img src="../img/Blue-facebook-icon-on-transparent-background-PNG.png">
+            <img src="../img/facebook-removebg-preview.png">
         </a>
     </div>
 </footer>
 
-
+</div>
 </body>
 </html>

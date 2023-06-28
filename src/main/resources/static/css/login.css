@@ -1,0 +1,81 @@
+/*.gradient-custom {*/
+/*    !* fallback for old browsers *!*/
+/*    background: #c199ec;*/
+
+/*    !* Chrome 10-25, Safari 5.1-6 *!*/
+/*    background: -webkit-linear-gradient(to right, rgba(250, 213, 213, 0.55), rgba(234, 144, 144, 0.34));*/
+
+/*    !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+/*    background: linear-gradient(to right, rgba(138, 106, 94, 0.55), rgba(215, 185, 185, 0.34))*/
+/*}*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, rgba(248, 178, 178, 0.55), #2c3e50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20vh;
+    transform: translateY(-50%);
+    padding: 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    transform: rotateX(10deg);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box h2 {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.box form {
+    display: flex;
+    flex-direction: column;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box input[type="email"],
+.box input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+    width: 100%;
+    max-width: 250px;
+}
+
+.box button[type="submit"] {
+    padding: 10px;
+    background-color: #8A6A5E8C;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.box .icon {
+    width: 30px;
+    height: 30px;
+   margin: 5px;
+}

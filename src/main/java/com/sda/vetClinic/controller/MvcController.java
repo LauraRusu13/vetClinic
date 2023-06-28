@@ -4,15 +4,23 @@ package com.sda.vetClinic.controller;
 import com.sda.vetClinic.dto.LoginDto;
 import com.sda.vetClinic.dto.PetDto;
 import com.sda.vetClinic.dto.UserDto;
+import com.sda.vetClinic.enums.Role;
 import com.sda.vetClinic.service.LoginService;
 import com.sda.vetClinic.service.PetService;
 import com.sda.vetClinic.service.UserService;
+import com.sda.vetClinic.validator.PetValidator;
+import com.sda.vetClinic.validator.UserValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 //        Inregistrare pet
 //        Inregistrare vet
@@ -47,8 +55,23 @@ public class MvcController {
     private LoginService loginService;
 
 
+
+    @Autowired
+    private UserValidator userValidator;
+    @Autowired
+    private PetValidator petValidator;
+
+
+    @GetMapping("/error")
+    public String errorGet() {
+        return "error";
+    }
+
+
     @GetMapping("/homepageOwner")
-    public String homepageOwnerGet(Model model) {
+    public String homepageOwnerGet(Model model, Authentication authentication) {
+        List<PetDto> petDtoList = petService.getPetDtoListByOwnerEmail(authentication.getName());
+        model.addAttribute("petDtoList", petDtoList);
         return "homepageOwner";
     }
 
@@ -56,6 +79,14 @@ public class MvcController {
     @GetMapping("/homepageVeterinarian")
     public String homepageVeterinarianGet(Model model) {
         return "homepageVeterinarian";
+    }
+
+    @GetMapping("/loginSuccessful")
+    public String loginSuccessfulGet(Authentication authentication) {
+        if (authentication.getAuthorities().stream().anyMatch(role->role.getAuthority().equals(Role.ROLE_OWNER.name()))){
+          return "redirect:/homepageOwner";
+        } else
+            return "redirect:/homepageVeterinarian";
     }
 
 
@@ -68,7 +99,11 @@ public class MvcController {
 
 
     @PostMapping("/addPet")
-    public String addPetPost(@ModelAttribute(name = "petDto") PetDto petDto) {
+    public String addPetPost(@ModelAttribute(name = "petDto") @Valid PetDto petDto, BindingResult bindingResult) {
+       petValidator.validate(petDto, bindingResult);
+       if (bindingResult.hasErrors()) {
+           return "error";
+       }
         petService.addPet(petDto);
         return "redirect:/addPet";
 
@@ -83,7 +118,11 @@ public class MvcController {
 
 
     @PostMapping("/registration")
-    public String registrationPost(@ModelAttribute(name = "userDto") UserDto userDto) {
+    public String registrationPost(@ModelAttribute(name = "userDto")  @Valid UserDto userDto, BindingResult bindingResult) {
+        userValidator.validate(userDto, bindingResult);
+        if (bindingResult.hasErrors()){
+            return "registration";
+        }
         userService.createUser(userDto);
         return "redirect:/registration";
 

@@ -1,13 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Homepage Veterinarian</title>
+    <link rel="stylesheet" th:href="@{/css/homepageVeterinarian.css}" href="../static/css/homepageVeterinarian.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="gradient-custom">
+
 <div th:include="~{fragments/navbar}"></div>
 
-vet vet
+
+<div>
+    <h2 class="section-title">Here are your appointments</h2>
+
+    <div class="appointment">
+        <h3 >Pacient</h3>
+        <p >Time </p>
+        <p >Reason for appointment</p>
+        <p>bla bla.</p>
+    </div>
+
+
+    <footer class="footer">
+        <p>Phone: 456456456456</p>
+        <p>Address: Street Street No.10</p>
+        <p>Email: vet@clinic.com</p>
+
+        <div class="social-icons">
+            <a href="https://www.facebook.com">
+                <img src="../img/facebook-removebg-preview.png">
+            </a>
+        </div>
+    </footer>
+</div>
 
 </body>
 </html>
