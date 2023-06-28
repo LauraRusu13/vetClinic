@@ -10,6 +10,8 @@ import com.sda.vetClinic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +38,27 @@ public class PetMapper {
                 .age(Integer.valueOf(petDto.getAge()))
                 .pedigree(Pedigree.valueOf(petDto.getPedigree()))
                 .build();
+    }
+
+    public PetDto map(Pet pet) {
+        return PetDto.builder()
+                .name(pet.getName())
+                .ownerEmail(pet.getUser().getEmail())
+                .gender(String.valueOf(pet.getGender()))
+                .dateOfBirth(pet.getDateOfBirth())
+                .weight(String.valueOf(pet.getWeight()))
+                .age(String.valueOf(pet.getAge()))
+                .pedigree(String.valueOf(pet.getPedigree()))
+                .build();
+    }
+
+    public List<PetDto> map(List<Pet> petList) {
+        List<PetDto> petDtoList = new ArrayList<>();
+        for (Pet pet : petList) {
+            PetDto petDto = map(pet);
+            petDtoList.add(petDto);
+        }
+        return petDtoList;
     }
 
 }

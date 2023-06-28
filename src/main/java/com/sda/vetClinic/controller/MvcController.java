@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 //        Inregistrare pet
 //        Inregistrare vet
 //        Adaugare programare
@@ -67,7 +69,9 @@ public class MvcController {
 
 
     @GetMapping("/homepageOwner")
-    public String homepageOwnerGet(Model model) {
+    public String homepageOwnerGet(Model model, Authentication authentication) {
+        List<PetDto> petDtoList = petService.getPetDtoListByOwnerEmail(authentication.getName());
+        model.addAttribute("petDtoList", petDtoList);
         return "homepageOwner";
     }
 
@@ -79,7 +83,7 @@ public class MvcController {
 
     @GetMapping("/loginSuccessful")
     public String loginSuccessfulGet(Authentication authentication) {
-        if (authentication.getAuthorities().stream().anyMatch(role->role.getAuthority().equals(Role.OWNER.name()))){
+        if (authentication.getAuthorities().stream().anyMatch(role->role.getAuthority().equals(Role.ROLE_OWNER.name()))){
           return "redirect:/homepageOwner";
         } else
             return "redirect:/homepageVeterinarian";

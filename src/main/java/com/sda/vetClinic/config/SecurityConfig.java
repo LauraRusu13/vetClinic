@@ -25,6 +25,7 @@ public class SecurityConfig {
             auth.requestMatchers("/registration").permitAll();
             auth.requestMatchers("/loginSuccessful").permitAll();
             auth.requestMatchers("/logout").permitAll();
+            auth.requestMatchers("/navbar").permitAll();
 
 
             auth.requestMatchers("/css/*").permitAll();

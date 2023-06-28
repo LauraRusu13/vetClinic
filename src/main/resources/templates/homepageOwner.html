@@ -10,14 +10,17 @@
 
 <div th:include="~{fragments/navbar}"></div>
 
-
 <div>
-    <h2 class="section-title">Meet Our Doctors</h2>
+    <h2 class="section-title">Here are your pets</h2>
 
-    <div class="doctor-card">
-        <h3 class="doctor-name">Dr. John Doe</h3>
-        <p class="doctor-specialty">Cardiologist</p>
-        <p>bla bla.</p>
+    <div class="pet-card" th:each="petDto:${petDtoList}">
+                <h2 th:text="${petDto.name}"></h2>
+                <p th:text="${petDto.type}"></p>
+                <p th:text="${petDto.gender}"></p>
+                <p th:text="${petDto.dateOfBirth}"></p>
+                <p th:text="${petDto.weight + ' kg'}"></p>
+                <p th:text="${petDto.age + ' years'}"></p>
+                <p th:text="${petDto.pedigree}"></p>
     </div>
 
 

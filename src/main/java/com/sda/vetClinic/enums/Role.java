@@ -2,6 +2,6 @@ package com.sda.vetClinic.enums;
 
 public enum Role {
 
-    OWNER,
-    VETERINARIAN;
+    ROLE_OWNER,
+    ROLE_VETERINARIAN;
 }
