@@ -10,5 +10,8 @@ public interface PetRepository extends CrudRepository<Pet, Long> {
 
     List<Pet> findByUserEmail(String email);
 
+    Pet findByName(String name);
+
+
 
 }

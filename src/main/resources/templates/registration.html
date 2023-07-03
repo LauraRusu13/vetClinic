@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Sign Up</title>
   <link rel="stylesheet" th:href="@{/css/registration.css}" href="../static/css/registration.css"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -58,10 +58,13 @@
         <option th:each="specificOpt : ${T(com.sda.vetClinic.enums.Role).values()}"
                 th:value="${specificOpt}" th:text="${specificOpt}"></option>
       </select>
+      <p th:each="error : ${#fields.errors('role')}" th:text="${error}" class="error"></p>
     </div>
 
 
     <button type="submit" class="btn btn-primary">Register</button>
+    <span><p class="have-account">Already have an account?</p>
+      <button class="login-button"><a href="/login">Sign In</a></button></span>
   </form>
 </div>
 

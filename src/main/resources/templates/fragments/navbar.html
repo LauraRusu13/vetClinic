@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" >
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Navbar</title>
@@ -10,12 +10,13 @@
 <div >
   <nav class="navbar">
     <ul>
-      <li><a href="/homepageOwner">VET CLINIC HOMEPAGE</a></li>
-      <li><a href="/homepageVeterinarian">VET CLINIC HOMEPAGE</a></li>
-      <li><a href="/registration">Register</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/addPet">Register a Pet</a></li>
-      <li><a href="/addAppointment">Make an Appointment</a></li>
+      <li sec:authorize="hasRole('OWNER')" th:classappend="${requestUrl == '/homepageOwner' ? 'active' : ''}"><a href="/homepageOwner" class="custom-button">VET CLINIC HOMEPAGE</a></li>
+      <li sec:authorize="hasRole('VETERINARIAN')" th:classappend="${requestUrl == '/homepageVeterinarian' ? 'active' : ''}"><a href="/homepageVeterinarian" class="custom-button">VET CLINIC HOMEPAGE</a></li>
+      <li sec:authorize="isAnonymous()" th:classappend="${requestUrl == '/registration' ? 'active' : ''}"><a href="/registration" class="custom-button">Register</a></li>
+      <li sec:authorize="isAnonymous()" th:classappend="${requestUrl == '/login' ? 'active' : ''}"><a href="/login" class="custom-button">Login</a></li>
+      <li sec:authorize="hasRole('OWNER')" th:classappend="${requestUrl == '/addPet' ? 'active' : ''}"><a href="/addPet" class="custom-button">Register a Pet</a></li>
+      <li sec:authorize="hasRole('OWNER')" th:classappend="${requestUrl == '/addAppointment' ? 'active' : ''}"><a href="/addAppointment" class="custom-button">Make an Appointment</a></li>
+      <li sec:authorize="isAuthenticated()"><a href="/logout" class="custom-button">Logout</a></li>
     </ul>
 
   </nav>

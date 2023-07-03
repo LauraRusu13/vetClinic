@@ -39,4 +39,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Pet> pets;
 
+    @OneToMany(mappedBy = "vet")
+    private List<Appointment> appointments;
+
+
+    public String getFullName(){
+        return firstName+" "+lastName;
+    }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointments</title>
+</head>
+<body>
+
+
+<form th:action="${requestUrl}" method="post" th:object="${appointmentDto}">
+
+    <div>
+        <div th:text="${appointmentDto.petName}"></div>
+        <div th:text="${appointmentDto.vetName}"></div>
+        <div th:text="${appointmentDto.appointmentType}"></div>
+        <div th:text="${appointmentDto.details}"></div>
+        <div th:text="${appointmentDto.otherMedicalIssues}"></div>
+        <div th:text="${appointmentDto.dateTime}"></div>
+
+        <input th:field="*{notes}" type="text" placeholder="Vet Notes">
+
+    </div>
+</form>
+
+</body>
+</html>

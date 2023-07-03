@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/rarepaws.png");
+    background-size: contain;
+    background-repeat: repeat;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f2f2f2;
+
+}
+
+.mb-3{
+    margin-bottom: 20px;
+}
+
+.container label {
+    margin-bottom: 10px;
+    display: block;
+}
+.container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.container button {
+    background-color: rgba(128, 128, 128, 0.57);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 25px;
+}

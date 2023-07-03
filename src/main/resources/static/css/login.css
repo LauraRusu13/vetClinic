@@ -42,7 +42,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .box form {
@@ -72,10 +72,26 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .box .icon {
     width: 30px;
     height: 30px;
    margin: 5px;
+}
+
+.no-account {
+    font-size: smaller;
+}
+
+.registration-button{
+    padding: 10px;
+    background-color: #8A6A5E8C;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 30px;
+    text-decoration: none;
 }

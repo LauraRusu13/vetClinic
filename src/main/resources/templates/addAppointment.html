@@ -3,14 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Make an Appointment</title>
+    <link rel="stylesheet" th:href="@{/css/addAppointment.css}" href="../static/css/addAppointment.css"/>
 </head>
 <body>
 <div th:include="~{fragments/navbar}"></div>
 
+<div class="container">
 
-Add appointment
+<div class="m-4" style="text-align: center;">
+    <form th:object="${appointmentDto}" style="max-width: 640px; margin: 0 auto; text-align: left;" action="/addAppointment" method="post">
 
+        <div class="mb-3">
+            <label class="form-label" >Pet</label>
+            <select  th:field="*{petName}" class="form-control" id="pet">
+                <option th:each="pet : ${petNameList}"
+                        th:value="${pet}" th:text="${pet}"></option>
+            </select>
 
+        </div>
 
+        <div class="mb-3">
+            <label class="form-label" >Vet Name</label>
+            <select  th:field="*{vetName}" class="form-control" id="vet">
+                <option th:each="vet : ${vetNameList}"
+                        th:value="${vet}" th:text="${vet}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" >Appointment Type: </label>
+            <select th:field="*{appointmentType}" class="form-control" id="appointmentType" required>
+                <option th:each="specificOpt : ${T(com.sda.vetClinic.enums.AppointmentType).values()}"
+                        th:value="${specificOpt}" th:text="${specificOpt}"></option>
+            </select>
+            <p th:each="error : ${#fields.errors('appointmentType')}" th:text="${error}" class="error"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" >Details</label>
+            <input th:field="*{details}" type="text" class="form-control" id="details" placeholder="Details" >
+            <p th:each="error : ${#fields.errors('details')}" th:text="${error}" class="error"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" >Other known medical issues</label>
+            <input th:field="*{otherMedicalIssues}" type="text" class="form-control" id="otherMedicalIssues" placeholder="Other Medical Issues" >
+            <p th:each="error : ${#fields.errors('otherMedicalIssues')}" th:text="${error}" class="error"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Choose an appointment date</label>
+            <input th:field="*{dateTime}" type="datetime-local" class="form-control" id="dateForAppointment" placeholder="Date for Appointment">
+            <p th:each="error : ${#fields.errors('dateTime')}" th:text="${error}" class="error"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Make Appointment</button>
+    </form>
+</div>
+
+</div>
 </body>
 </html>

@@ -31,11 +31,12 @@ public class SecurityConfig {
             auth.requestMatchers("/css/*").permitAll();
             auth.requestMatchers("/img/*").permitAll();
 
-            auth.requestMatchers("/homepageVeterinarian").authenticated();
-            auth.requestMatchers("/homepageOwner").authenticated();
+            auth.requestMatchers("/homepageVeterinarian").hasRole("VETERINARIAN");
+            auth.requestMatchers("/homepageOwner").hasRole("OWNER");
 
 
             auth.requestMatchers("/addPet").hasRole("OWNER");
+            auth.requestMatchers("/addAppointment").hasRole("OWNER");
 
 
 
