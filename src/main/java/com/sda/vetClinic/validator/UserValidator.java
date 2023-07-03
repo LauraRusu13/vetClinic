@@ -1,14 +1,15 @@
 package com.sda.vetClinic.validator;
 
-import com.sda.vetClinic.dto.PetDto;
 import com.sda.vetClinic.dto.UserDto;
 import com.sda.vetClinic.entity.User;
+import com.sda.vetClinic.enums.Role;
 import com.sda.vetClinic.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -25,6 +26,7 @@ public class UserValidator {
         validatePassword(userDto, bindingResult);
         validatePhoneNo(userDto, bindingResult);
         validateDateOfBirth(userDto, bindingResult);
+        validateRole(userDto, bindingResult);
     }
 
 
@@ -135,7 +137,7 @@ public class UserValidator {
     // password
     private void validatePassword(UserDto userDto, BindingResult bindingResult) {
         validatePasswordNotEmpty(userDto, bindingResult);
-        validatePasswordRules(userDto, bindingResult);
+//        validatePasswordRules(userDto, bindingResult);
     }
 
     private void validatePasswordNotEmpty(UserDto userDto, BindingResult bindingResult) {
@@ -145,18 +147,18 @@ public class UserValidator {
         }
     }
 
-//    at least one upper case letter, one lower case letter,
+    //    at least one upper case letter, one lower case letter,
 //    one numeric digit
 //    one special character
 //    minimum length 8
-    private void validatePasswordRules(UserDto userDto, BindingResult bindingResult) {
-        if (userDto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,15}$")) {
-            FieldError fieldError = new FieldError("userDto", "password",
-                    "Wrong format! Password must be between 8 - 15 characters, must contain numbers and at least one lowercase and one uppercase character!");
-            bindingResult.addError(fieldError);
-        }
-
-    }
+//    private void validatePasswordRules(UserDto userDto, BindingResult bindingResult) {
+//        if (userDto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,15}$")) {
+//            FieldError fieldError = new FieldError("userDto", "password",
+//                    "Wrong format! Password must be between 8 - 15 characters, must contain numbers and at least one lowercase and one uppercase character!");
+//            bindingResult.addError(fieldError);
+//        }
+//
+//    }
 
 
     // phone number
@@ -183,7 +185,7 @@ public class UserValidator {
     }
 
     private void validatePhoneNoBeNineChar(UserDto userDto, BindingResult bindingResult) {
-        if (!userDto.getPhoneNo().matches("^\\d{9}$")) {
+        if (!userDto.getPhoneNo().matches("^\\d{10}$")) {
             FieldError fieldError = new FieldError("userDto", "phoneNo",
                     "Wrong format! Phone number has to be 9 characters!");
             bindingResult.addError(fieldError);
@@ -191,19 +193,37 @@ public class UserValidator {
     }
 
 
-
-
     // date
     private void validateDateOfBirth(UserDto userDto, BindingResult bindingResult) {
-        if(userDto.getDateOfBirth().isEmpty()){
-            FieldError fieldError = new FieldError("userDto","dateOfBirth",
+        validateDateOfBirthNotEmpty(userDto, bindingResult);
+        validateDateOfBirthAgeMin16(userDto, bindingResult);
+    }
+
+    private void validateDateOfBirthNotEmpty(UserDto userDto, BindingResult bindingResult) {
+        if (userDto.getDateOfBirth().isEmpty()) {
+            FieldError fieldError = new FieldError("userDto", "dateOfBirth",
                     "Date of birth should be filled!");
             bindingResult.addError(fieldError);
         }
     }
 
+    private void validateDateOfBirthAgeMin16(UserDto userDto, BindingResult bindingResult) {
+        LocalDate dateOfBirth = LocalDate.parse(userDto.getDateOfBirth());
+        if (dateOfBirth.isAfter(LocalDate.now().minusYears(16))) {
+            FieldError fieldError = new FieldError("userDto", "dateOfBirth", "Age must be at least 16! Talk to your parents!");
+            bindingResult.addError(fieldError);
+        }
+    }
 
 
-
+    // role
+    private void validateRole(UserDto userDto, BindingResult bindingResult) {
+        try {
+            Role.valueOf(userDto.getRole());
+        } catch (Exception e) {
+            FieldError fieldError = new FieldError("userDto", "role", "Please select a role from the list!");
+            bindingResult.addError(fieldError);
+        }
+    }
 
 }

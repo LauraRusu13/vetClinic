@@ -1,11 +1,14 @@
 package com.sda.vetClinic.entity;
 
 
+import com.sda.vetClinic.enums.Breed;
 import com.sda.vetClinic.enums.Gender;
 import com.sda.vetClinic.enums.Pedigree;
-import com.sda.vetClinic.enums.Type;
+import com.sda.vetClinic.enums.Species;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -23,7 +26,10 @@ public class Pet {
     private String name;
 
     @Enumerated(value = EnumType.STRING)
-    private Type type;
+    private Species species;
+
+    @Enumerated(value = EnumType.STRING)
+    private Breed breed;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
@@ -40,4 +46,7 @@ public class Pet {
     @ManyToOne
     @JoinColumn
     private User user;
+
+    @OneToMany(mappedBy = "pet")
+    private List<Appointment> appointmentsList;
 }

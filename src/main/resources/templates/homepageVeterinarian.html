@@ -10,30 +10,46 @@
 
 <div th:include="~{fragments/navbar}"></div>
 
-
 <div>
     <h2 class="section-title">Here are your appointments</h2>
 
-    <div class="appointment">
-        <h3 >Pacient</h3>
-        <p >Time </p>
-        <p >Reason for appointment</p>
-        <p>bla bla.</p>
+
+    <div class="appointment-card-row">
+
+        <div class="appointment-card" th:each="appointmentDto:${appointmentDtoList}">
+            <h2 th:text="${appointmentDto.petName}"> Appointment </h2>
+
+            <span class="same-row">
+            <p>Pet Name: </p>
+            <p th:text="${appointmentDto.petName}"></p>
+        </span>
+
+            <span class="same-row">
+            <p>Appointment type:  </p>
+            <p th:text="${appointmentDto.appointmentType}"></p>
+        </span>
+
+            <span class="same-row">
+            <p>Details: </p>
+            <p th:text="${appointmentDto.details}"></p>
+        </span>
+
+            <span class="same-row">
+            <p>Other Medical Issues: </p>
+            <p th:text="${appointmentDto.otherMedicalIssues}"></p>
+        </span>
+
+            <span class="same-row">
+            <p>Appointment Date and Time: </p>
+            <p th:text="${appointment.dateTime}"></p>
+        </span>
+
+        </div>
     </div>
 
-
-    <footer class="footer">
-        <p>Phone: 456456456456</p>
-        <p>Address: Street Street No.10</p>
-        <p>Email: vet@clinic.com</p>
-
-        <div class="social-icons">
-            <a href="https://www.facebook.com">
-                <img src="../img/facebook-removebg-preview.png">
-            </a>
-        </div>
-    </footer>
+</div>
 </div>
 
+<div th:include="~{fragments/footer}"></div>
 </body>
 </html>

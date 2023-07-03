@@ -1,6 +1,10 @@
 package com.sda.vetClinic.validator;
 
 import com.sda.vetClinic.dto.PetDto;
+import com.sda.vetClinic.enums.Breed;
+import com.sda.vetClinic.enums.Gender;
+import com.sda.vetClinic.enums.Pedigree;
+import com.sda.vetClinic.enums.Species;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,6 +19,10 @@ public class PetValidator {
         validateDateOfBirth(petDto, bindingResult);
         validateWeight(petDto, bindingResult);
         validateAge(petDto, bindingResult);
+        validatePetSpecies(petDto, bindingResult);
+        validatePetBreed(petDto, bindingResult);
+//        validateGender(petDto, bindingResult);
+//        validatePedigree(petDto, bindingResult);
 
     }
 
@@ -25,7 +33,6 @@ public class PetValidator {
         validateNameNotContainSpecialChars(petDto, bindingResult);
         validateNameMinSize(petDto, bindingResult);
         validateNameMaxSize(petDto, bindingResult);
-
     }
 
 
@@ -61,6 +68,42 @@ public class PetValidator {
 
     // owner email
 
+
+
+    // pet species
+    private void validatePetSpecies(PetDto petDto, BindingResult bindingResult) {
+        try {
+            Species.valueOf(petDto.getSpecies());
+        } catch (Exception e) {
+            FieldError fieldError = new FieldError("petDto", "species", "Please select a species from the list!");
+            bindingResult.addError(fieldError);
+        }
+    }
+
+
+//     pet breed
+
+    private void validatePetBreed(PetDto petDto, BindingResult bindingResult) {
+        try {
+            Breed.valueOf(petDto.getBreed());
+        } catch (Exception e) {
+            FieldError fieldError = new FieldError("petDto", "breed", "Please select a breed from the list!");
+            bindingResult.addError(fieldError);
+        }
+    }
+
+
+
+
+    // gender
+//    private void validateGender(PetDto petDto, BindingResult bindingResult) {
+//        try {
+//            Gender.valueOf(petDto.getGender());
+//        } catch (Exception e) {
+//            FieldError fieldError = new FieldError("petDto", "gender", "Please select a gender from the list!");
+//            bindingResult.addError(fieldError);
+//        }
+//    }
 
 
     // date of birth
@@ -121,5 +164,15 @@ public class PetValidator {
         }
     }
 
+
+    // pedigree
+//    private void validatePedigree(PetDto petDto, BindingResult bindingResult) {
+//        try {
+//            Pedigree.valueOf(petDto.getPedigree());
+//        } catch (Exception e) {
+//            FieldError fieldError = new FieldError("petDto", "pedigree", "Please select if pet has pedigree!");
+//            bindingResult.addError(fieldError);
+//        }
+//    }
 
 }

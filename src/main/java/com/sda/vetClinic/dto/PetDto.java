@@ -17,7 +17,9 @@ public class PetDto {
 
     private String ownerEmail;
 
-    private String type;
+    private String species;
+
+    private String breed;
 
     private String gender;
 

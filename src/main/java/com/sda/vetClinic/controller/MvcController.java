@@ -1,15 +1,20 @@
 package com.sda.vetClinic.controller;
 
 
+import com.sda.vetClinic.dto.AppointmentDto;
 import com.sda.vetClinic.dto.LoginDto;
 import com.sda.vetClinic.dto.PetDto;
 import com.sda.vetClinic.dto.UserDto;
+import com.sda.vetClinic.entity.Appointment;
 import com.sda.vetClinic.enums.Role;
+import com.sda.vetClinic.service.AppointmentService;
 import com.sda.vetClinic.service.LoginService;
 import com.sda.vetClinic.service.PetService;
 import com.sda.vetClinic.service.UserService;
+import com.sda.vetClinic.validator.AppointmentValidator;
 import com.sda.vetClinic.validator.PetValidator;
 import com.sda.vetClinic.validator.UserValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,21 +23,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
-//        Inregistrare pet
-//        Inregistrare vet
-//        Adaugare programare
+//        Inregistrare pet x
+//        Inregistrare vet x
+//        Adaugare programare x
 //        Preluare programare de catre vet
 //        Procesare consult(programarea devine un consult cu informatii adaugate de vet)
 //
-//        Utilizatori autentificati
-//        Adaugati pagini de register si login. Introduceti doua tipuri de useri: vet si pet owner.
-//        Doar utilizatorii autentificati pot accesa paginile aplicatiei.
+//        Utilizatori autentificati x
+//        Adaugati pagini de register si login. Introduceti doua tipuri de useri: vet si pet owner. x
+//        Doar utilizatorii autentificati pot accesa paginile aplicatiei. x
 //        Doar vets pot prelua si procesa programari
-//        Doar pet owners pot solicita programari.
+//        Doar pet owners pot solicita programari. x
 //
 //        Pet ownerul poate lasa feedback/rate/review
 //        Pet ownerul poate vizualiza istoricul programarilor;
@@ -54,12 +61,17 @@ public class MvcController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private AppointmentService appointmentService;
+
 
 
     @Autowired
     private UserValidator userValidator;
     @Autowired
     private PetValidator petValidator;
+    @Autowired
+    private AppointmentValidator appointmentValidator;
 
 
     @GetMapping("/error")
@@ -77,7 +89,10 @@ public class MvcController {
 
 
     @GetMapping("/homepageVeterinarian")
-    public String homepageVeterinarianGet(Model model) {
+    public String homepageVeterinarianGet(Model model, Authentication authentication) {
+        List<AppointmentDto> appointmentDtoList = appointmentService.getAppointmentDtoListByPetUserEmail(authentication.getName());
+        model.addAttribute("appointmentDtoList", appointmentDtoList);
+        System.out.println(appointmentDtoList);
         return "homepageVeterinarian";
     }
 
@@ -108,6 +123,31 @@ public class MvcController {
         return "redirect:/addPet";
 
     }
+    @GetMapping("/addAppointment")
+    public String addAppointGet(Model model, Authentication authentication) {
+        AppointmentDto appointmentDto = new AppointmentDto();
+        model.addAttribute("appointmentDto", appointmentDto);
+
+        List<String> petNames = petService.getPetNameListByOwnerEmail(authentication.getName());
+        model.addAttribute("petNameList", petNames);
+
+        List<String> vetNames = userService.getAllVetNameList();
+        model.addAttribute("vetNameList", vetNames);
+        return "addAppointment";
+    }
+
+    @PostMapping("/addAppointment")
+    public String addAppointmentPost(@ModelAttribute(name = "appointmentDto") @Valid AppointmentDto appointmentDto, BindingResult bindingResult) {
+        appointmentValidator.validate(appointmentDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "error";
+        }
+        appointmentService.addAppointment(appointmentDto);
+        return "redirect:/addAppointment";
+    }
+
+
+
 
     @GetMapping("/registration")
     public String registrationGet(Model model) {
@@ -138,16 +178,37 @@ public class MvcController {
     }
 
 
-    @PostMapping("/login")
-    public String loginPost(@ModelAttribute(name = "loginDto") LoginDto loginDto, Model model) {
-        Boolean loginWasSuccessful = loginService.login(loginDto);
-        if (loginWasSuccessful) {
-            model.addAttribute("loginMessage", "Login was successful!");
-        } else {
-            model.addAttribute("loginMessage", "Login unsuccessful! Try again.");
-        }
-        return "login";
+//    @PostMapping("/login")
+//    public String loginPost(@ModelAttribute(name = "loginDto") LoginDto loginDto, Model model) {
+//        Boolean loginWasSuccessful = loginService.login(loginDto);
+//        if (loginWasSuccessful) {
+//            model.addAttribute("loginMessage", "Login was successful!");
+//        } else {
+//            model.addAttribute("loginMessage", "Login unsuccessful! Try again.");
+//        }
+//        return "login";
+//
+//    }
 
+
+
+
+    @GetMapping("/appointment/{appointmentId}")
+    public String viewAppointmentGet(@PathVariable(value = "appointmentId") String appointmentId, Model model) {
+        Optional<AppointmentDto> optionalAppointmentDto = appointmentService.getOptionalAppointmentDtoById(appointmentId);
+
+        if (optionalAppointmentDto.isEmpty()) {
+            return "error";
+        }
+        AppointmentDto appointmentDto = optionalAppointmentDto.get();
+        model.addAttribute("appointmentDto", appointmentDto);
+        return "viewAppointments";
+    }
+
+
+    @ModelAttribute("requestUrl")
+    public String requestUrl(HttpServletRequest request){
+        return request.getRequestURI();
     }
 
 

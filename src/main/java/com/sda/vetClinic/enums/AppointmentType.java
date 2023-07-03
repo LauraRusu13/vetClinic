@@ -1,0 +1,18 @@
+package com.sda.vetClinic.enums;
+
+public enum AppointmentType {
+
+    GROOMING,
+
+    WELLNESS_CHECKUP,
+    VACCINATION,
+    SPAYING_OR_NEUTERING,
+    DENTAL_CLEANING,
+    DERMATOLOGY_CONSULT,
+    CARDIOLOGY_CONSULT,
+    NEUROLOGY_CONSULT,
+    OTHER_DIAGNOSTIC_SERVICES;
+
+
+
+}

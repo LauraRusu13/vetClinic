@@ -28,4 +28,11 @@ public class PetService {
         List<Pet> petList = petRepository.findByUserEmail(email);
         return petMapper.map(petList);
     }
+
+    public List<String> getPetNameListByOwnerEmail(String ownerEmail) {
+        List<Pet> petList = petRepository.findByUserEmail(ownerEmail);
+        return petList.stream()
+                .map(Pet::getName)
+                .toList();
+    }
 }

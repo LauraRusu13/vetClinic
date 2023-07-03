@@ -1,6 +1,6 @@
 package com.sda.vetClinic.enums;
 
-public enum Type {
+public enum Species {
 
     CAT,
     DOG,

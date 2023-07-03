@@ -2,40 +2,66 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>Homepage Owner</title>
     <link rel="stylesheet" th:href="@{/css/homepageOwner.css}" href="../static/css/homepageOwner.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="gradient-custom">
+<div class="container-all">
 
 <div th:include="~{fragments/navbar}"></div>
 
 <div>
     <h2 class="section-title">Here are your pets</h2>
 
+
+
+    <div class="pet-card-row">
+
     <div class="pet-card" th:each="petDto:${petDtoList}">
                 <h2 th:text="${petDto.name}"></h2>
-                <p th:text="${petDto.type}"></p>
-                <p th:text="${petDto.gender}"></p>
-                <p th:text="${petDto.dateOfBirth}"></p>
-                <p th:text="${petDto.weight + ' kg'}"></p>
-                <p th:text="${petDto.age + ' years'}"></p>
-                <p th:text="${petDto.pedigree}"></p>
+
+        <span class="same-row">
+            <p>Pet Species: </p>
+            <p th:text="${petDto.species}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Pet Breed: </p>
+            <p th:text="${petDto.breed}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Gender: </p>
+            <p th:text="${petDto.gender}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Date of Birth: </p>
+            <p th:text="${petDto.dateOfBirth}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Weight: </p>
+            <p th:text="${petDto.weight + ' kg'}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Age: </p>
+            <p th:text="${petDto.age + ' years'}"></p>
+        </span>
+
+        <span class="same-row">
+            <p>Does it have pedigree: </p>
+            <p th:text="${petDto.pedigree}"></p>
+        </span>
+
     </div>
-
-
-<footer class="footer">
-    <p>Phone: 456456456456</p>
-    <p>Address: Street Street No.10</p>
-    <p>Email: vet@clinic.com</p>
-
-    <div class="social-icons">
-        <a href="https://www.facebook.com">
-            <img src="../img/facebook-removebg-preview.png">
-        </a>
     </div>
-</footer>
 
 </div>
+</div>
+
+<div th:include="~{fragments/footer}"></div>
 </body>
 </html>
